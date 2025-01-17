@@ -47,7 +47,7 @@ Este proyecto, **AluraGeek**, es una aplicación que permite agregar, mostrar y 
 ## Instalación y Uso
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/usuario/AluraGeek.git
+   git clone https://github.com/LinamariaMartinez/AluraGeek.git
    ```
 2. Navega al directorio del proyecto:
    ```bash
