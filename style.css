@@ -1,0 +1,334 @@
+/* General */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: "Press Start 2P";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5300C8;
+    color: #E5E5E5;
+    text-align: center;
+    padding: 10px;
+}
+
+header h1,
+footer p {
+    margin: 0;
+}
+
+header h1 {
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 374px;
+    height: 56px;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+    overflow-y: auto;
+    /* Scroll interno activado al exceder 9 productos */
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-family: "Press Start 2P";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Formulario */
+#formulario {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    /* Fijar el ancho */
+    height: 300px;
+}
+
+#formulario input::placeholder {
+    color: #03318C;
+    font-family: "IBM Plex Mono";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+#formulario input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #03318C;
+    border-radius: 4px;
+    box-sizing: border-box;
+    align-self: stretch;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.botones button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.botones button:hover {
+    background-color: #580c9b;
+}
+
+#btn-enviar {
+    background-color: #03318C;
+    color: #FFF;
+    text-align: center;
+    font-family: "IBM Plex Mono";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#btn-limpiar {
+    color: #03318C;
+    text-align: center;
+    font-family: "IBM Plex Mono";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+/* Productos */
+#misProductos {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    height: fit-content;
+    width: 800px;
+    /* box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; /* Ocultar el contenido que exceda */
+    /*overflow-y: overlay; Activar scroll interno */
+}
+
+#mensajeVacio {
+    font-family: "Press Start 2P", monospace;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#productosContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    max-height: calc(150px * 3 + 120px);
+    /* Altura máxima para mostrar 9 productos (150px cada uno con 20px de espacio) */
+    overflow-y: auto;
+    /* Scroll interno activado al exceder 9 productos */
+    box-sizing: border-box;
+}
+
+.producto {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #03318C;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.producto img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    object-fit: cover;
+    align-self: center;
+}
+
+.producto h3 {
+    font-family: "IBM Plex Mono";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.producto-detalle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.producto p {
+    font-family: "IBM Plex Mono";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    margin: 0;
+    /* padding: 10px 0;
+    display: flex; */
+}
+
+.producto button {
+    margin-top: 10px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.producto button p{
+    flex-direction: row;
+    justify-content: space-between; /* Distribuir el contenido en extremos opuestos */
+    align-items: center; /* Centrar verticalmente los elementos */
+}
+
+.producto button::before {
+    content: "\1F5D1";
+    /* Unicode del ícono de basurero */
+    font-size: 20px;
+}
+
+.producto button:hover {
+    background-color: #c9302c;
+}
+
+/* Footer */
+footer {
+    background-color: #5300C8;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer h3 {
+    color: #FFF;
+    display: flex;
+    width: 374px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+footer h4 {
+    color: #FFF;
+    text-align: center;
+    font-family: "IBM Plex Mono";
+    font-size: 16px;
+    margin: 0;
+    font-weight: 200;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+footer h4 .br-style {
+    opacity: 0.5;
+    color: #D1C4E9;
+    font-weight: 200;
+}
+
+/* Responsividad para pantallas de hasta 768px */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    header h1 {
+        font-size: 20px;
+        width: auto;
+        height: auto;
+    }
+
+    main {
+        flex-direction: column-reverse;
+        overflow-x: hidden;
+        
+    }
+
+    #formulario {
+        width: auto;
+        padding: 20px;
+    }
+
+    #misProductos {
+        width: auto;
+        padding: 20px;
+    }
+
+    #productosContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Cambiar a dos columnas */
+        gap: 10px; /* Reducir el espacio entre los productos */
+        max-height: unset; /* Quitar la altura máxima */
+        overflow-y: unset; /* Deshabilitar el scroll interno */
+    }
+
+    .producto img {
+        width: 80px; /* Reducir el tamaño de las imágenes */
+        height: 80px;
+    }
+
+    footer {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    footer h3, footer h4 {
+        font-size: 14px;
+    }
+}
+
