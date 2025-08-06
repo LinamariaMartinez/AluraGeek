@@ -1,33 +1,19 @@
 {
   "version": 2,
-  "name": "alurageek",
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "src": "api/*.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/productos",
-      "dest": "/api/productos.js"
-    },
-    {
-      "src": "/api/productos/(.*)",
-      "dest": "/api/productos.js"
-    },
-    {
-      "src": "/(.*\\.(js|css|html|png|jpg|jpeg|gif|svg|ico))",
-      "dest": "/$1"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/$1"
     }
-  ],
-  "functions": {
-    "api/productos.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }
