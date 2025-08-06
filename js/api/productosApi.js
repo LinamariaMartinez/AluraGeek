@@ -1,4 +1,18 @@
-const API_URL = "http://localhost:3000/productos";
+// Detectar automáticamente si estamos en desarrollo o producción
+const getApiUrl = () => {
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+  if (isLocalhost) {
+    return "http://localhost:3000/productos";
+  } else {
+    // En producción (Vercel)
+    return `${window.location.origin}/api/productos`;
+  }
+};
+
+const API_URL = getApiUrl();
 
 // Función auxiliar para mostrar notificaciones
 const mostrarNotificacion = (mensaje, tipo = "info") => {
@@ -133,10 +147,7 @@ export const obtenerProductos = async () => {
     return productos;
   } catch (error) {
     console.error("Error al obtener productos:", error);
-    mostrarNotificacion(
-      "Error al cargar los productos. ¿Está corriendo JSON Server?",
-      "error",
-    );
+    mostrarNotificacion("Error al cargar los productos", "error");
     return [];
   }
 };
@@ -191,19 +202,6 @@ export const agregarProducto = async (producto) => {
       imagen: producto.imagen.trim(),
     };
 
-    // Obtener productos actuales para calcular ID
-    const productos = await obtenerProductos();
-
-    // Calcular nuevo ID
-    const nuevoId =
-      productos.length > 0
-        ? (
-            Math.max(...productos.map((prod) => parseInt(prod.id) || 0)) + 1
-          ).toString()
-        : "1";
-
-    const productoConId = { id: nuevoId, ...productoLimpio };
-
     // Enviar producto a la API
     const response = await fetch(API_URL, {
       method: "POST",
@@ -211,7 +209,7 @@ export const agregarProducto = async (producto) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(productoConId),
+      body: JSON.stringify(productoLimpio),
     });
 
     if (!response.ok) {
@@ -225,10 +223,7 @@ export const agregarProducto = async (producto) => {
     return productoAgregado;
   } catch (error) {
     console.error("Error al agregar producto:", error);
-    mostrarNotificacion(
-      "Error al agregar el producto. Intenta de nuevo.",
-      "error",
-    );
+    mostrarNotificacion("Error al agregar el producto", "error");
     return null;
   }
 };
@@ -266,10 +261,7 @@ export const eliminarProducto = async (id) => {
     return true;
   } catch (error) {
     console.error("Error al eliminar producto:", error);
-    mostrarNotificacion(
-      "Error al eliminar el producto. Intenta de nuevo.",
-      "error",
-    );
+    mostrarNotificacion("Error al eliminar el producto", "error");
     return false;
   }
 };
