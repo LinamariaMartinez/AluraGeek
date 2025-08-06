@@ -1,6 +1,6 @@
-// api/productos.js - API Serverless para Vercel
+// api/productos.js - API principal para GET todos y POST
 
-// Datos iniciales (en producción real usarías una base de datos)
+// Datos iniciales (IMPORTANTE: debe ser el mismo array que en [id].js)
 let productos = [
   {
     id: "1",
@@ -32,34 +32,20 @@ export default function handler(req, res) {
     return;
   }
 
-  const { method, query, url } = req;
+  const { method } = req;
 
-  // Extraer ID de la URL para DELETE
-  let id = query.id;
-  if (!id && method === "DELETE") {
-    // Para rutas como /api/productos/123, extraer el ID de la URL
-    const urlParts = url.split("/");
-    id = urlParts[urlParts.length - 1];
-  }
-
-  console.log(`${method} request to ${url}, ID: ${id}`); // Para debugging
+  console.log(`${method} request to /api/productos`); // Para debugging
 
   try {
     switch (method) {
       case "GET":
-        handleGet(req, res, id);
+        handleGet(req, res);
         break;
       case "POST":
         handlePost(req, res);
         break;
-      case "PUT":
-        handlePut(req, res, id);
-        break;
-      case "DELETE":
-        handleDelete(req, res, id);
-        break;
       default:
-        res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
+        res.setHeader("Allow", ["GET", "POST"]);
         res.status(405).json({ error: `Method ${method} Not Allowed` });
     }
   } catch (error) {
@@ -70,20 +56,9 @@ export default function handler(req, res) {
   }
 }
 
-// GET - Obtener todos los productos o uno específico
-function handleGet(req, res, id) {
-  console.log("GET request, ID:", id);
-
-  if (id) {
-    // Obtener producto específico
-    const producto = productos.find((p) => p.id === id);
-    if (!producto) {
-      return res.status(404).json({ error: "Producto no encontrado" });
-    }
-    return res.status(200).json(producto);
-  }
-
-  // Obtener todos los productos
+// GET - Obtener todos los productos
+function handleGet(req, res) {
+  console.log("GET all products, count:", productos.length);
   res.status(200).json(productos);
 }
 
@@ -140,73 +115,6 @@ function handlePost(req, res) {
   console.log("Producto agregado:", nuevoProducto);
 
   res.status(201).json(nuevoProducto);
-}
-
-// PUT - Actualizar producto existente
-function handlePut(req, res, id) {
-  console.log("PUT request, ID:", id);
-
-  if (!id) {
-    return res.status(400).json({ error: "ID requerido para actualizar" });
-  }
-
-  const index = productos.findIndex((p) => p.id === id);
-  if (index === -1) {
-    return res.status(404).json({ error: "Producto no encontrado" });
-  }
-
-  const { nombre, precio, imagen } = req.body;
-
-  // Validaciones (similares al POST)
-  if (nombre && nombre.trim().length < 2) {
-    return res
-      .status(400)
-      .json({ error: "El nombre debe tener al menos 2 caracteres" });
-  }
-
-  if (precio && (isNaN(precio) || parseFloat(precio) <= 0)) {
-    return res
-      .status(400)
-      .json({ error: "El precio debe ser un número mayor a 0" });
-  }
-
-  if (imagen && !isValidURL(imagen)) {
-    return res.status(400).json({ error: "La imagen debe ser una URL válida" });
-  }
-
-  // Actualizar producto
-  const productoActualizado = {
-    ...productos[index],
-    ...(nombre && { nombre: nombre.trim() }),
-    ...(precio && { precio: parseFloat(precio).toFixed(2) }),
-    ...(imagen && { imagen: imagen.trim() }),
-  };
-
-  productos[index] = productoActualizado;
-
-  res.status(200).json(productoActualizado);
-}
-
-// DELETE - Eliminar producto
-function handleDelete(req, res, id) {
-  console.log("DELETE request, ID:", id);
-
-  if (!id) {
-    return res.status(400).json({ error: "ID requerido para eliminar" });
-  }
-
-  const index = productos.findIndex((p) => p.id === id);
-  if (index === -1) {
-    return res.status(404).json({ error: "Producto no encontrado", id: id });
-  }
-
-  const productoEliminado = productos.splice(index, 1)[0];
-  console.log("Producto eliminado:", productoEliminado);
-
-  res.status(200).json({
-    message: "Producto eliminado exitosamente",
-    producto: productoEliminado,
-  });
 }
 
 // Utilidad para validar URLs
