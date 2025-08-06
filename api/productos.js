@@ -1,4 +1,4 @@
-// API Serverless para Vercel
+// api/productos.js - API Serverless para Vercel
 
 // Datos iniciales (en producción real usarías una base de datos)
 let productos = [
@@ -32,8 +32,17 @@ export default function handler(req, res) {
     return;
   }
 
-  const { method, query } = req;
-  const id = query.id;
+  const { method, query, url } = req;
+
+  // Extraer ID de la URL para DELETE
+  let id = query.id;
+  if (!id && method === "DELETE") {
+    // Para rutas como /api/productos/123, extraer el ID de la URL
+    const urlParts = url.split("/");
+    id = urlParts[urlParts.length - 1];
+  }
+
+  console.log(`${method} request to ${url}, ID: ${id}`); // Para debugging
 
   try {
     switch (method) {
@@ -63,6 +72,8 @@ export default function handler(req, res) {
 
 // GET - Obtener todos los productos o uno específico
 function handleGet(req, res, id) {
+  console.log("GET request, ID:", id);
+
   if (id) {
     // Obtener producto específico
     const producto = productos.find((p) => p.id === id);
@@ -78,6 +89,8 @@ function handleGet(req, res, id) {
 
 // POST - Crear nuevo producto
 function handlePost(req, res) {
+  console.log("POST request, body:", req.body);
+
   const { nombre, precio, imagen } = req.body;
 
   // Validaciones
@@ -124,12 +137,15 @@ function handlePost(req, res) {
   };
 
   productos.push(nuevoProducto);
+  console.log("Producto agregado:", nuevoProducto);
 
   res.status(201).json(nuevoProducto);
 }
 
 // PUT - Actualizar producto existente
 function handlePut(req, res, id) {
+  console.log("PUT request, ID:", id);
+
   if (!id) {
     return res.status(400).json({ error: "ID requerido para actualizar" });
   }
@@ -173,16 +189,19 @@ function handlePut(req, res, id) {
 
 // DELETE - Eliminar producto
 function handleDelete(req, res, id) {
+  console.log("DELETE request, ID:", id);
+
   if (!id) {
     return res.status(400).json({ error: "ID requerido para eliminar" });
   }
 
   const index = productos.findIndex((p) => p.id === id);
   if (index === -1) {
-    return res.status(404).json({ error: "Producto no encontrado" });
+    return res.status(404).json({ error: "Producto no encontrado", id: id });
   }
 
   const productoEliminado = productos.splice(index, 1)[0];
+  console.log("Producto eliminado:", productoEliminado);
 
   res.status(200).json({
     message: "Producto eliminado exitosamente",
