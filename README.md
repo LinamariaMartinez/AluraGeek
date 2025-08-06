@@ -1,79 +1,96 @@
-# Desafío: AluraGeek
+# AluraGeek
 
-Este proyecto, **AluraGeek**, es una aplicación que permite agregar, mostrar y eliminar productos Geek mediante un formulario interactivo. Además, está diseñada para ser completamente responsiva y brindar una experiencia de usuario optimizada en cualquier dispositivo.
+Aplicación web interactiva para gestionar productos geek con operaciones de agregar, mostrar y eliminar. Diseño completamente responsivo con experiencia optimizada para todos los dispositivos.
 
-## Características
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://alura-geek-beta-wine.vercel.app)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-### 1. Formulario de Entrada
-- **Inputs**:
-  - Nombre del producto Geek.
-  - Precio del producto.
-  - URL de la imagen del producto.
-- **Botones**:
-  - Botón para enviar el formulario y agregar el producto a la lista.
-  - Botón para limpiar los campos del formulario.
-- **Validación**:
-  - Asegura que los campos no estén vacíos.
-  - Verifica que el precio sea un número válido.
-  - Comprueba que la URL sea una dirección válida para la imagen.
+## 🚀 [Ver Demo](https://alura-geek-beta-wine.vercel.app)
 
-### 2. Renderización de Productos
-- Una sección dedicada a mostrar todos los productos ingresados.
-- Cada producto se representa en una **tarjeta** que incluye:
-  - Nombre.
-  - Precio.
-  - Imagen.
-- Funcionalidad para eliminar productos individualmente mediante un botón en cada tarjeta.
+## ✨ Características
 
-### 3. Eventos
-- Uso de `addEventListener` para manejar:
-  - El botón de enviar, validando los datos y agregando productos.
-  - El botón de limpiar, vaciando los campos del formulario.
-  - La eliminación dinámica de productos desde la lista.
+- **Formulario interactivo** con validación en tiempo real
+- **Gestión de productos** - agregar, visualizar y eliminar
+- **Diseño responsivo** - desktop (3-4 productos por fila) y mobile (2 columnas)
+- **API REST** con serverless functions en Vercel
+- **Notificaciones elegantes** con animaciones suaves
+- **Header fijo** y scroll optimizado por secciones
 
-### 4. Responsividad
-- Diseño responsivo que asegura:
-  - En dispositivos grandes: El formulario y la lista de productos aparecen lado a lado.
-  - En dispositivos móviles: El formulario aparece encima de la lista de productos, eliminando la necesidad de scroll horizontal.
-  - Los productos se muestran en **dos columnas** para maximizar el uso del espacio visual.
+## 🛠️ Tecnologías
 
-## Tecnologías Utilizadas
-- **HTML5**: Estructura semántica del proyecto.
-- **CSS3**: Estilización y diseño responsivo.
-- **JavaScript**: Lógica del formulario, manejo de eventos y renderización dinámica de productos.
-- **Fetch API**: Construcción de solicitudes GET, POST y DELETE para interactuar con datos externos.
-- **Validación Personalizada**: Aplicación de atributos de validación en formularios y personalización de mensajes de error.
+- **HTML5, CSS3, JavaScript ES6+**
+- **Fetch API** para comunicación con backend
+- **JSON Server** para desarrollo local
+- **Vercel** para deployment con serverless functions
+- **Responsive Design** con CSS Grid y Flexbox
 
-## Instalación y Uso
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/LinamariaMartinez/AluraGeek.git
-   ```
-2. Navega al directorio del proyecto:
-   ```bash
-   cd AluraGeek
-   ```
-3. Abre el archivo `index.html` en tu navegador para ver la aplicación.
+## 📦 Instalación
 
-## Funcionalidades Adicionales
-- **Eliminación Dinámica**: Cada tarjeta tiene un botón para eliminarla directamente.
-- **Mensajes de Error**: Si los datos ingresados son incorrectos, se muestran mensajes descriptivos para corregirlos.
-- **Limpieza Rápida**: El botón de limpiar asegura que el formulario quede listo para un nuevo ingreso de datos.
-- **Uso de APIs Externas**: Se utilizaron requisiciones HTML hacia APIs externas para manejar datos de productos.
+```bash
+# Clonar repositorio
+git clone https://github.com/LinamariaMartinez/AluraGeek.git
+cd AluraGeek
 
-## Vista del Proyecto
+# Instalar dependencias
+npm install
 
-### Diseño en Escritorio
-- El formulario y los productos se organizan en una disposición horizontal.
-- Las tarjetas de producto están distribuidas en filas.
+# Iniciar servidor de desarrollo
+npm start
+```
 
-### Diseño en Dispositivos Móviles
-- El formulario aparece en la parte superior de la pantalla.
-- Los productos se muestran en dos columnas para aprovechar el espacio disponible.
+Luego abre `index.html` en tu navegador.
 
-## Contribución
-Las contribuciones son bienvenidas. Si encuentras algún problema o deseas proponer mejoras, abre un issue o envía un pull request.
+## 📁 Estructura
 
-## Autor
-Creado por Linamaría Martínez.
+```
+AluraGeek/
+├── index.html              # Página principal
+├── style.css               # Estilos responsivos
+├── db.json                 # Base de datos simulada
+├── api/                    # Serverless functions
+│   ├── productos.js        # GET todos, POST
+│   └── productos/[id].js   # GET y DELETE específicos
+└── js/
+    ├── main.js             # Lógica principal
+    ├── api/productosApi.js # Cliente API
+    └── utils/              # Utilidades de UI
+```
 
+## 🎯 Funcionalidades
+
+### Formulario
+- Validación de campos en tiempo real
+- Mensajes de error descriptivos
+- Limpieza rápida del formulario
+
+### Productos
+- Grid responsivo adaptativo
+- Eliminación con confirmación
+- Notificaciones de estado
+
+### Responsive
+- **Desktop**: Layout horizontal con scroll interno
+- **Mobile**: Header fijo, productos en 2 columnas
+- **Tablet**: Balance intermedio optimizado
+
+## 🔧 Scripts
+
+```bash
+npm start    # Iniciar JSON Server (desarrollo)
+npm install  # Instalar dependencias
+```
+
+## 🚀 Deployment
+
+El proyecto se despliega automáticamente en Vercel con cada push a `main`. La API funciona tanto en desarrollo (JSON Server) como en producción (serverless functions).
+
+## 👩‍💻 Autora
+
+**Linamaría Martínez**
+
+Desarrollado como parte del programa Oracle Next Education (ONE) - Challenge Frontend 2024/2025
+
+---
+
+[![Alura Latam](https://img.shields.io/badge/Alura-Latam-blue?style=flat)](https://www.aluracursos.com/)
+[![Oracle](https://img.shields.io/badge/Oracle-Next%20Education-red?style=flat)](https://www.oracle.com/mx/education/oracle-next-education/)
