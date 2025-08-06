@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es-419">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AluraGeek</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body>
+        <header>
+            <h1>❤️❤️❤️ AluraGeek</h1>
+        </header>
+
+        <main>
+            <section id="misProductos">
+                <h2>Mis Productos</h2>
+                <div id="productosContainer">
+                    <!-- Productos generados dinámicamente -->
+                </div>
+            </section>
+
+            <section id="formulario">
+                <h2>Agregar producto</h2>
+                <form id="agregarProductoForm">
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Nombre del producto"
+                        required
+                    />
+
+                    <input
+                        type="number"
+                        id="precio"
+                        name="precio"
+                        placeholder="Precio del producto"
+                        required
+                    />
+
+                    <input
+                        type="url"
+                        id="imagen"
+                        name="imagen"
+                        placeholder="URL de la imagen"
+                        required
+                    />
+
+                    <div class="botones">
+                        <button type="submit" id="btn-enviar">Enviar</button>
+
+                        <button type="reset" id="btn-limpiar">Limpiar</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <h3>❤️❤️❤️ AluraGeek</h3>
+            <h4>
+                Desarrollado por Linamaría Martínez
+                <span class="br-style"
+                    ><br />
+                    Programa ONE Next Education - 2024
+                </span>
+            </h4>
+        </footer>
+
+        <script src="./js/main.js" type="module" defer></script>
+    </body>
+</html>
