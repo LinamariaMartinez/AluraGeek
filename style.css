@@ -3,6 +3,7 @@ html,
 body {
     height: 100%;
     margin: 0;
+    overflow: hidden; /* Evitar scroll en el body */
 }
 
 body {
@@ -20,10 +21,11 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5300C8;
-    color: #E5E5E5;
+    background-color: #5300c8;
+    color: #e5e5e5;
     text-align: center;
     padding: 10px;
+    flex-shrink: 0; /* No se reduzca */
 }
 
 header h1,
@@ -43,10 +45,11 @@ header h1 {
 main {
     padding: 20px;
     display: flex;
-    justify-content: space-around;
-    flex: 1;
-    overflow-y: auto;
-    /* Scroll interno activado al exceder 9 productos */
+    justify-content: space-between; /* Mejor distribución del espacio */
+    gap: 40px; /* Espacio entre las secciones */
+    flex: 1; /* Toma todo el espacio disponible */
+    overflow: hidden; /* No scroll en el main */
+    min-height: 0; /* Importante para flexbox */
 }
 
 section {
@@ -70,12 +73,12 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     width: 300px;
-    /* Fijar el ancho */
-    height: 300px;
+    height: fit-content; /* Altura dinámica */
+    flex-shrink: 0; /* No se reduzca */
 }
 
 #formulario input::placeholder {
-    color: #03318C;
+    color: #03318c;
     font-family: "IBM Plex Mono";
     font-size: 16px;
     font-style: normal;
@@ -83,12 +86,11 @@ h2 {
     line-height: normal;
 }
 
-
 #formulario input {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #03318C;
+    border: 1px solid #03318c;
     border-radius: 4px;
     box-sizing: border-box;
     align-self: stretch;
@@ -113,8 +115,8 @@ h2 {
 }
 
 #btn-enviar {
-    background-color: #03318C;
-    color: #FFF;
+    background-color: #03318c;
+    color: #fff;
     text-align: center;
     font-family: "IBM Plex Mono";
     font-size: 20px;
@@ -124,7 +126,7 @@ h2 {
 }
 
 #btn-limpiar {
-    color: #03318C;
+    color: #03318c;
     text-align: center;
     font-family: "IBM Plex Mono";
     font-size: 20px;
@@ -139,13 +141,16 @@ h2 {
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    height: fit-content;
     width: 800px;
-    /* box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    /* overflow: hidden; /* Ocultar el contenido que exceda */
-    /*overflow-y: overlay; Activar scroll interno */
+    min-height: 0; /* Importante para que funcione el scroll interno */
+    flex: 1; /* Toma todo el espacio disponible */
+}
+
+#misProductos h2 {
+    flex-shrink: 0; /* El título no se reduzca */
+    margin-bottom: 20px;
 }
 
 #mensajeVacio {
@@ -158,24 +163,44 @@ h2 {
 
 #productosContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 10px;
-    max-height: calc(150px * 3 + 120px);
-    /* Altura máxima para mostrar 9 productos (150px cada uno con 20px de espacio) */
-    overflow-y: auto;
-    /* Scroll interno activado al exceder 9 productos */
-    box-sizing: border-box;
+    grid-template-columns: repeat(3, 1fr); /* Máximo 3 columnas en desktop */
+    gap: 25px; /* Más espacio entre productos */
+    padding: 15px;
+    overflow-y: auto; /* Solo scroll vertical en los productos */
+    overflow-x: hidden; /* No scroll horizontal */
+    flex: 1; /* Toma todo el espacio disponible */
+    max-height: 100%; /* No exceder el contenedor padre */
+}
+
+/* Personalizar scrollbar */
+#productosContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+#productosContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#productosContainer::-webkit-scrollbar-thumb {
+    background: #03318c;
+    border-radius: 4px;
+}
+
+#productosContainer::-webkit-scrollbar-thumb:hover {
+    background: #5300c8;
 }
 
 .producto {
     background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #03318C;
+    padding: 15px; /* Más padding para mejor apariencia */
+    border: 1px solid #03318c;
     border-radius: 8px;
     text-align: center;
     display: flex;
     flex-direction: column;
+    height: fit-content; /* Altura dinámica */
+    min-width: 160px; /* Ancho mínimo para mejor proporción */
 }
 
 .producto img {
@@ -211,8 +236,6 @@ h2 {
     line-height: normal;
     text-align: left;
     margin: 0;
-    /* padding: 10px 0;
-    display: flex; */
 }
 
 .producto button {
@@ -226,15 +249,8 @@ h2 {
     justify-content: center;
 }
 
-.producto button p{
-    flex-direction: row;
-    justify-content: space-between; /* Distribuir el contenido en extremos opuestos */
-    align-items: center; /* Centrar verticalmente los elementos */
-}
-
 .producto button::before {
     content: "\1F5D1";
-    /* Unicode del ícono de basurero */
     font-size: 20px;
 }
 
@@ -244,17 +260,18 @@ h2 {
 
 /* Footer */
 footer {
-    background-color: #5300C8;
+    background-color: #5300c8;
     text-align: center;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0; /* No se reduzca */
 }
 
 footer h3 {
-    color: #FFF;
+    color: #fff;
     display: flex;
     width: 374px;
     height: 56px;
@@ -264,7 +281,7 @@ footer h3 {
 }
 
 footer h4 {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-family: "IBM Plex Mono";
     font-size: 16px;
@@ -276,15 +293,32 @@ footer h4 {
 
 footer h4 .br-style {
     opacity: 0.5;
-    color: #D1C4E9;
+    color: #d1c4e9;
     font-weight: 200;
 }
 
 /* Responsividad para pantallas de hasta 768px */
 @media (max-width: 768px) {
+    html,
+    body {
+        overflow: auto; /* Permitir scroll en móvil */
+        height: auto; /* Altura automática en móvil */
+    }
+
     body {
         flex-direction: column;
         padding: 0 10px;
+        padding-top: 0; /* Sin padding top para el header fijo */
+    }
+
+    header {
+        position: fixed; /* Header fijo en mobile */
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Por encima del contenido */
+        width: 100%;
+        box-sizing: border-box;
     }
 
     header h1 {
@@ -295,40 +329,141 @@ footer h4 .br-style {
 
     main {
         flex-direction: column-reverse;
-        overflow-x: hidden;
-        
+        overflow: visible; /* Permitir overflow en móvil */
+        padding: 10px;
+        flex: none; /* No flex en móvil */
+        margin-top: 80px; /* Espacio para el header fijo */
+        gap: 0; /* Sin gap en mobile */
     }
 
     #formulario {
         width: auto;
         padding: 20px;
+        margin-bottom: 20px;
     }
 
     #misProductos {
         width: auto;
         padding: 20px;
+        flex: none; /* No flex en móvil */
+        min-height: auto;
     }
 
     #productosContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Cambiar a dos columnas */
-        gap: 10px; /* Reducir el espacio entre los productos */
-        max-height: unset; /* Quitar la altura máxima */
-        overflow-y: unset; /* Deshabilitar el scroll interno */
+        grid-template-columns: 1fr 1fr; /* Exactamente 2 columnas iguales en móvil */
+        gap: 12px; /* Gap más pequeño */
+        max-height: none; /* Sin altura máxima en móvil */
+        overflow-y: visible; /* Sin scroll interno en móvil */
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .producto {
+        min-height: auto; /* Altura automática en móvil */
+        padding: 10px 8px; /* Padding más pequeño */
+        min-width: auto; /* Sin ancho mínimo en mobile */
+        width: 100%; /* Usar todo el ancho disponible */
+        box-sizing: border-box;
+        margin: 0; /* Sin márgenes */
     }
 
     .producto img {
-        width: 80px; /* Reducir el tamaño de las imágenes */
+        width: 80px;
         height: 80px;
+    }
+
+    .producto h3 {
+        font-size: 14px;
+        padding: 8px 0 5px 0; /* Menos padding vertical */
+        line-height: 1.2; /* Altura de línea más compacta */
+    }
+
+    .producto p {
+        font-size: 13px;
+        margin: 0; /* Sin margen */
+    }
+
+    .producto-detalle {
+        margin-top: 8px; /* Menos espacio arriba */
+    }
+
+    .producto button {
+        margin-top: 5px; /* Menos espacio arriba del botón */
+        width: 30px; /* Ancho fijo para el botón */
+        height: 30px; /* Alto fijo para el botón */
+        padding: 0; /* Sin padding interno */
+    }
+
+    .producto button::before {
+        font-size: 16px; /* Icono más pequeño */
     }
 
     footer {
         flex-direction: column;
-        padding: 10px 0;
+        padding: 15px 0;
     }
 
-    footer h3, footer h4 {
+    footer h3,
+    footer h4 {
         font-size: 14px;
+        width: auto;
+        height: auto;
     }
 }
 
+/* Para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    main {
+        padding: 15px;
+        gap: 30px; /* Espacio entre secciones en tablet */
+    }
+
+    #formulario {
+        width: 280px;
+        padding: 30px;
+    }
+
+    #misProductos {
+        width: 600px;
+        padding: 30px;
+    }
+
+    #productosContainer {
+        grid-template-columns: repeat(
+            3,
+            1fr
+        ); /* 3 columnas en tablet también */
+        gap: 20px;
+    }
+
+    .producto {
+        min-width: 140px;
+    }
+
+    .producto img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* Para pantallas muy grandes */
+@media (min-width: 1400px) {
+    main {
+        gap: 60px; /* Más espacio en pantallas grandes */
+        padding: 30px;
+    }
+
+    #misProductos {
+        width: 900px; /* Contenedor más ancho */
+    }
+
+    #productosContainer {
+        grid-template-columns: repeat(
+            4,
+            1fr
+        ); /* 4 columnas solo en pantallas muy grandes */
+        gap: 30px;
+    }
+}
